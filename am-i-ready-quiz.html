@@ -1,0 +1,866 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Am I Actually Ready? | No Cap Physio</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --navy: #1B2E4B;
+    --navy-light: #243d63;
+    --teal: #2E86AB;
+    --teal-light: #3fa0c9;
+    --white: #FFFFFF;
+    --off-white: #F5F7FA;
+    --gray: #8A9BB0;
+    --light-gray: #E8EDF4;
+    --danger: #E05353;
+    --warn: #E8943A;
+    --success: #2E86AB;
+    --text: #1B2E4B;
+    --text-muted: #5A6E87;
+  }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--off-white);
+    color: var(--text);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    padding: 0;
+  }
+
+  .header {
+    width: 100%;
+    background: var(--navy);
+    padding: 16px 24px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .logo {
+    font-family: 'Bebas Neue', sans-serif;
+    color: var(--white);
+    font-size: 22px;
+    letter-spacing: 1px;
+  }
+
+  .logo span {
+    color: var(--teal);
+  }
+
+  .header-tag {
+    font-size: 11px;
+    color: var(--gray);
+    letter-spacing: 1px;
+    text-transform: uppercase;
+  }
+
+  .container {
+    width: 100%;
+    max-width: 640px;
+    padding: 32px 24px 64px;
+  }
+
+  .screen { display: none; }
+  .screen.active { display: block; }
+
+  /* INTRO */
+  .intro-eyebrow {
+    font-size: 11px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--teal);
+    font-weight: 600;
+    margin-bottom: 12px;
+  }
+
+  .intro-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 52px;
+    line-height: 1;
+    color: var(--navy);
+    margin-bottom: 16px;
+  }
+
+  .intro-subtitle {
+    font-size: 17px;
+    color: var(--text-muted);
+    line-height: 1.6;
+    margin-bottom: 28px;
+  }
+
+  .intro-pills {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-bottom: 32px;
+  }
+
+  .pill {
+    background: var(--light-gray);
+    color: var(--navy);
+    font-size: 13px;
+    font-weight: 500;
+    padding: 6px 14px;
+    border-radius: 100px;
+  }
+
+  .intro-meta {
+    display: flex;
+    gap: 24px;
+    margin-bottom: 36px;
+  }
+
+  .meta-item {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+
+  .meta-value {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 28px;
+    color: var(--navy);
+    line-height: 1;
+  }
+
+  .meta-label {
+    font-size: 12px;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+  }
+
+  .divider {
+    width: 1px;
+    background: var(--light-gray);
+    align-self: stretch;
+  }
+
+  .btn-primary {
+    display: block;
+    width: 100%;
+    background: var(--navy);
+    color: var(--white);
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 22px;
+    letter-spacing: 1px;
+    padding: 18px 24px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    text-align: center;
+    transition: background 0.15s;
+  }
+
+  .btn-primary:hover { background: var(--navy-light); }
+
+  .disclaimer {
+    font-size: 12px;
+    color: var(--gray);
+    text-align: center;
+    margin-top: 12px;
+    line-height: 1.5;
+  }
+
+  /* QUIZ */
+  .progress-bar-wrap {
+    background: var(--light-gray);
+    border-radius: 100px;
+    height: 6px;
+    margin-bottom: 8px;
+    overflow: hidden;
+  }
+
+  .progress-bar-fill {
+    height: 100%;
+    background: var(--teal);
+    border-radius: 100px;
+    transition: width 0.4s ease;
+  }
+
+  .progress-label {
+    font-size: 12px;
+    color: var(--gray);
+    margin-bottom: 28px;
+    display: flex;
+    justify-content: space-between;
+  }
+
+  .q-category {
+    font-size: 11px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--teal);
+    font-weight: 600;
+    margin-bottom: 10px;
+  }
+
+  .q-text {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 32px;
+    line-height: 1.1;
+    color: var(--navy);
+    margin-bottom: 28px;
+  }
+
+  .options {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-bottom: 28px;
+  }
+
+  .option {
+    background: var(--white);
+    border: 1.5px solid var(--light-gray);
+    border-radius: 12px;
+    padding: 16px 20px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    transition: border-color 0.15s, background 0.15s;
+  }
+
+  .option:hover {
+    border-color: var(--teal);
+    background: #f0f8fb;
+  }
+
+  .option.selected {
+    border-color: var(--teal);
+    background: #e6f4f9;
+  }
+
+  .option-icon {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background: var(--light-gray);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 16px;
+    flex-shrink: 0;
+    transition: background 0.15s;
+  }
+
+  .option.selected .option-icon {
+    background: var(--teal);
+  }
+
+  .option-dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    border: 2px solid var(--gray);
+    transition: all 0.15s;
+    flex-shrink: 0;
+  }
+
+  .option.selected .option-dot {
+    background: var(--teal);
+    border-color: var(--teal);
+  }
+
+  .option-text {
+    font-size: 15px;
+    color: var(--text);
+    line-height: 1.4;
+    font-weight: 500;
+  }
+
+  .nav-btns {
+    display: flex;
+    gap: 12px;
+  }
+
+  .btn-back {
+    flex: 0 0 auto;
+    background: transparent;
+    color: var(--text-muted);
+    border: 1.5px solid var(--light-gray);
+    border-radius: 8px;
+    font-size: 15px;
+    font-weight: 500;
+    padding: 14px 20px;
+    cursor: pointer;
+    transition: border-color 0.15s;
+  }
+
+  .btn-back:hover { border-color: var(--gray); }
+
+  .btn-next {
+    flex: 1;
+    background: var(--navy);
+    color: var(--white);
+    border: none;
+    border-radius: 8px;
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 20px;
+    letter-spacing: 1px;
+    padding: 14px 24px;
+    cursor: pointer;
+    transition: background 0.15s;
+    opacity: 0.4;
+    pointer-events: none;
+  }
+
+  .btn-next.enabled {
+    opacity: 1;
+    pointer-events: auto;
+  }
+
+  .btn-next.enabled:hover { background: var(--navy-light); }
+
+  /* RESULTS */
+  .result-band {
+    border-radius: 12px;
+    padding: 24px;
+    margin-bottom: 24px;
+  }
+
+  .result-band.red { background: #FEF0F0; border-left: 4px solid var(--danger); }
+  .result-band.amber { background: #FEF5EE; border-left: 4px solid var(--warn); }
+  .result-band.green { background: #EAF6FB; border-left: 4px solid var(--success); }
+
+  .result-label {
+    font-size: 11px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    font-weight: 600;
+    margin-bottom: 6px;
+  }
+
+  .red .result-label { color: var(--danger); }
+  .amber .result-label { color: var(--warn); }
+  .green .result-label { color: var(--success); }
+
+  .result-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 36px;
+    color: var(--navy);
+    line-height: 1;
+    margin-bottom: 10px;
+  }
+
+  .result-body {
+    font-size: 15px;
+    color: var(--text-muted);
+    line-height: 1.6;
+  }
+
+  .score-display {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-bottom: 28px;
+  }
+
+  .score-circle {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+
+  .score-circle.red { background: #FEF0F0; border: 3px solid var(--danger); }
+  .score-circle.amber { background: #FEF5EE; border: 3px solid var(--warn); }
+  .score-circle.green { background: #EAF6FB; border: 3px solid var(--success); }
+
+  .score-num {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 30px;
+    line-height: 1;
+    color: var(--navy);
+  }
+
+  .score-denom {
+    font-size: 12px;
+    color: var(--gray);
+  }
+
+  .score-meta {
+    flex: 1;
+  }
+
+  .score-meta-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 26px;
+    color: var(--navy);
+    line-height: 1;
+    margin-bottom: 4px;
+  }
+
+  .score-meta-sub {
+    font-size: 14px;
+    color: var(--text-muted);
+  }
+
+  .breakdown-title {
+    font-size: 13px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: var(--gray);
+    font-weight: 600;
+    margin-bottom: 14px;
+  }
+
+  .breakdown-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-bottom: 28px;
+  }
+
+  .breakdown-row {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .breakdown-cat {
+    font-size: 13px;
+    color: var(--text-muted);
+    width: 110px;
+    flex-shrink: 0;
+  }
+
+  .breakdown-bar-wrap {
+    flex: 1;
+    height: 6px;
+    background: var(--light-gray);
+    border-radius: 100px;
+    overflow: hidden;
+  }
+
+  .breakdown-bar-fill {
+    height: 100%;
+    border-radius: 100px;
+  }
+
+  .fill-red { background: var(--danger); }
+  .fill-amber { background: var(--warn); }
+  .fill-green { background: var(--success); }
+
+  .breakdown-score {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--navy);
+    width: 30px;
+    text-align: right;
+    flex-shrink: 0;
+  }
+
+  .cta-box {
+    background: var(--navy);
+    border-radius: 12px;
+    padding: 28px 24px;
+    margin-bottom: 20px;
+  }
+
+  .cta-box-eyebrow {
+    font-size: 11px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--teal-light);
+    font-weight: 600;
+    margin-bottom: 8px;
+  }
+
+  .cta-box-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 28px;
+    color: var(--white);
+    line-height: 1.1;
+    margin-bottom: 10px;
+  }
+
+  .cta-box-body {
+    font-size: 14px;
+    color: #8A9BB0;
+    line-height: 1.6;
+    margin-bottom: 20px;
+  }
+
+  .btn-cta {
+    display: block;
+    width: 100%;
+    background: var(--teal);
+    color: var(--white);
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 20px;
+    letter-spacing: 1px;
+    padding: 16px 24px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    text-align: center;
+    text-decoration: none;
+    transition: background 0.15s;
+  }
+
+  .btn-cta:hover { background: var(--teal-light); }
+
+  .retake-btn {
+    display: block;
+    width: 100%;
+    background: transparent;
+    color: var(--gray);
+    border: 1.5px solid var(--light-gray);
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 500;
+    padding: 12px 24px;
+    cursor: pointer;
+    text-align: center;
+    margin-top: 12px;
+    transition: border-color 0.15s;
+  }
+
+  .retake-btn:hover { border-color: var(--gray); }
+
+  @media (max-width: 480px) {
+    .intro-title { font-size: 40px; }
+    .q-text { font-size: 26px; }
+    .container { padding: 24px 16px 48px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div class="logo">NO CAP <span>PHYSIO</span></div>
+  <div class="header-tag">Performance Readiness Test</div>
+</div>
+
+<div class="container">
+
+  <!-- INTRO SCREEN -->
+  <div class="screen active" id="screen-intro">
+    <p class="intro-eyebrow">2-Minute Assessment</p>
+    <h1 class="intro-title">Am I Actually Ready?</h1>
+    <p class="intro-subtitle">
+      Getting cleared to play is not the same as being ready to perform. This test tells you where you actually stand — trust, explosiveness, and confidence included.
+    </p>
+    <div class="intro-pills">
+      <span class="pill">ACL Return</span>
+      <span class="pill">Knee Injury</span>
+      <span class="pill">Return To Sport</span>
+    </div>
+    <div class="intro-meta">
+      <div class="meta-item">
+        <span class="meta-value">7</span>
+        <span class="meta-label">Questions</span>
+      </div>
+      <div class="divider"></div>
+      <div class="meta-item">
+        <span class="meta-value">2</span>
+        <span class="meta-label">Minutes</span>
+      </div>
+      <div class="divider"></div>
+      <div class="meta-item">
+        <span class="meta-value">3</span>
+        <span class="meta-label">Outcome Levels</span>
+      </div>
+    </div>
+    <button class="btn-primary" onclick="startQuiz()">Start the Test →</button>
+    <p class="disclaimer">No login required. Takes 2 minutes. Results are instant.</p>
+  </div>
+
+  <!-- QUIZ SCREEN -->
+  <div class="screen" id="screen-quiz">
+    <div class="progress-bar-wrap">
+      <div class="progress-bar-fill" id="progress-fill" style="width: 0%"></div>
+    </div>
+    <div class="progress-label">
+      <span id="progress-text">Question 1 of 7</span>
+      <span id="progress-pct">0%</span>
+    </div>
+
+    <p class="q-category" id="q-category"></p>
+    <h2 class="q-text" id="q-text"></h2>
+
+    <div class="options" id="options-container"></div>
+
+    <div class="nav-btns">
+      <button class="btn-back" id="btn-back" onclick="goBack()">← Back</button>
+      <button class="btn-next" id="btn-next" onclick="goNext()">Next →</button>
+    </div>
+  </div>
+
+  <!-- RESULTS SCREEN -->
+  <div class="screen" id="screen-results">
+    <p class="intro-eyebrow" style="margin-bottom: 20px;">Your Results</p>
+
+    <div class="score-display" id="score-display"></div>
+
+    <div id="result-band-container"></div>
+
+    <div class="breakdown-title">Category Breakdown</div>
+    <div class="breakdown-grid" id="breakdown-grid"></div>
+
+    <div class="cta-box" id="cta-box"></div>
+
+    <button class="retake-btn" onclick="retake()">Retake the Test</button>
+  </div>
+
+</div>
+
+<script>
+const questions = [
+  {
+    category: "Trust",
+    text: "When you cut hard to your dominant side at full pace, what happens in your head?",
+    options: [
+      { label: "I don't think about it — it's automatic", score: 2 },
+      { label: "I hesitate slightly but I still go", score: 1 },
+      { label: "I slow down or avoid the cut entirely", score: 0 }
+    ]
+  },
+  {
+    category: "Load Tolerance",
+    text: "After a hard training session or full game, how does your knee respond?",
+    options: [
+      { label: "Feels normal — no different to my other knee", score: 2 },
+      { label: "Slight ache but settles within a day", score: 1 },
+      { label: "Swells, aches, or takes more than a day to settle", score: 0 }
+    ]
+  },
+  {
+    category: "Power",
+    text: "When you jump and land — off one or two legs — what are you thinking?",
+    options: [
+      { label: "Nothing. It's just automatic", score: 2 },
+      { label: "I'm slightly aware of my knee on landing", score: 1 },
+      { label: "I'm actively bracing or protecting the landing", score: 0 }
+    ]
+  },
+  {
+    category: "Explosiveness",
+    text: "How explosive do you feel compared to before your injury?",
+    options: [
+      { label: "Just as explosive — maybe even better", score: 2 },
+      { label: "Slightly less but close to where I was", score: 1 },
+      { label: "Noticeably slower and less powerful", score: 0 }
+    ]
+  },
+  {
+    category: "Contact Confidence",
+    text: "How do you feel going into a contact situation — driving through a defender, boxing out, taking a charge?",
+    options: [
+      { label: "No different to how I played before", score: 2 },
+      { label: "I play through it but it's in the back of my mind", score: 1 },
+      { label: "I avoid contact or position myself away from it", score: 0 }
+    ]
+  },
+  {
+    category: "Mental Load",
+    text: "During a game, how often does your knee enter your thoughts?",
+    options: [
+      { label: "Never — I'm just playing", score: 2 },
+      { label: "Occasionally, usually after a hard play", score: 1 },
+      { label: "Constantly — it's always somewhere in my head", score: 0 }
+    ]
+  },
+  {
+    category: "Reactivity",
+    text: "When you change direction at full speed — like reacting to a drive, closing out, or a first-step explosion — how do you feel?",
+    options: [
+      { label: "Confident and reactive — no hesitation", score: 2 },
+      { label: "I can do it but I'm not fully trusting it yet", score: 1 },
+      { label: "I slow down before the change or avoid the situation", score: 0 }
+    ]
+  }
+];
+
+const categories = ["Trust", "Load Tolerance", "Power", "Explosiveness", "Contact Confidence", "Mental Load", "Reactivity"];
+
+let currentQ = 0;
+let answers = new Array(questions.length).fill(null);
+
+function startQuiz() {
+  showScreen('screen-quiz');
+  renderQuestion();
+}
+
+function showScreen(id) {
+  document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+}
+
+function renderQuestion() {
+  const q = questions[currentQ];
+  const pct = Math.round((currentQ / questions.length) * 100);
+
+  document.getElementById('progress-fill').style.width = pct + '%';
+  document.getElementById('progress-text').textContent = `Question ${currentQ + 1} of ${questions.length}`;
+  document.getElementById('progress-pct').textContent = pct + '%';
+  document.getElementById('q-category').textContent = q.category;
+  document.getElementById('q-text').textContent = q.text;
+
+  const container = document.getElementById('options-container');
+  container.innerHTML = '';
+
+  q.options.forEach((opt, i) => {
+    const div = document.createElement('div');
+    div.className = 'option' + (answers[currentQ] === i ? ' selected' : '');
+    div.innerHTML = `
+      <div class="option-dot"></div>
+      <div class="option-text">${opt.label}</div>
+    `;
+    div.onclick = () => selectOption(i);
+    container.appendChild(div);
+  });
+
+  const backBtn = document.getElementById('btn-back');
+  backBtn.style.display = currentQ === 0 ? 'none' : 'block';
+
+  updateNextBtn();
+}
+
+function selectOption(i) {
+  answers[currentQ] = i;
+  document.querySelectorAll('.option').forEach((el, idx) => {
+    el.classList.toggle('selected', idx === i);
+  });
+  updateNextBtn();
+}
+
+function updateNextBtn() {
+  const btn = document.getElementById('btn-next');
+  const hasAnswer = answers[currentQ] !== null;
+  btn.classList.toggle('enabled', hasAnswer);
+  btn.textContent = currentQ === questions.length - 1 ? 'See My Results →' : 'Next →';
+}
+
+function goNext() {
+  if (answers[currentQ] === null) return;
+  if (currentQ < questions.length - 1) {
+    currentQ++;
+    renderQuestion();
+  } else {
+    showResults();
+  }
+}
+
+function goBack() {
+  if (currentQ > 0) {
+    currentQ--;
+    renderQuestion();
+  }
+}
+
+function showResults() {
+  const totalScore = answers.reduce((sum, ansIdx, qi) => {
+    return sum + (ansIdx !== null ? questions[qi].options[ansIdx].score : 0);
+  }, 0);
+  const maxScore = questions.length * 2;
+
+  let tier, tierColor;
+  if (totalScore >= 11) { tier = 'green'; }
+  else if (totalScore >= 6) { tier = 'amber'; }
+  else { tier = 'red'; }
+
+  const tierData = {
+    green: {
+      label: 'Performance Ready',
+      title: "You're close — but close isn't there yet.",
+      body: "Your numbers look solid. Trust and physical readiness are mostly intact. But a few areas need to be locked in before you're playing at your ceiling. The gap between good and game-ready is where injuries happen.",
+      cta_eyebrow: "Your Next Step",
+      cta_title: "Lock In The Last 10% Of Your Return",
+      cta_body: "DM 'READY' on Instagram and I'll send you a breakdown of what to focus on for the final phase of your return to performance.",
+      cta_btn: "DM 'READY' on Instagram"
+    },
+    amber: {
+      label: 'The Gap Zone',
+      title: "You're playing — but you're not back.",
+      body: "Medical clearance said yes. Your body and brain aren't fully aligned yet. The hesitation, the self-monitoring, the holdbacks — that's performance left on the table. And it won't fix itself.",
+      cta_eyebrow: "What's Actually Missing",
+      cta_title: "Find Out What Standard Physio Skipped",
+      cta_body: "DM 'JUMP' on Instagram and I'll send you a breakdown of the 4 things most rehab programs miss — including the one that's keeping you stuck right now.",
+      cta_btn: "DM 'JUMP' on Instagram"
+    },
+    red: {
+      label: 'Not There Yet',
+      title: "You need more than a green light.",
+      body: "Your score shows real gaps — in trust, power, or load tolerance — that haven't been addressed. Playing through this without a proper plan is how athletes re-injure. Getting cleared is step one. Return to performance is a different journey.",
+      cta_eyebrow: "Get A Real Plan",
+      cta_title: "Book A Return-To-Performance Assessment",
+      cta_body: "DM 'REAL' on Instagram and let's talk. I'll tell you exactly where your gaps are and what needs to happen before you're actually ready to perform.",
+      cta_btn: "DM 'REAL' on Instagram"
+    }
+  };
+
+  const data = tierData[tier];
+
+  document.getElementById('score-display').innerHTML = `
+    <div class="score-circle ${tier}">
+      <span class="score-num">${totalScore}</span>
+      <span class="score-denom">/ ${maxScore}</span>
+    </div>
+    <div class="score-meta">
+      <div class="score-meta-title">${data.label}</div>
+      <div class="score-meta-sub">${totalScore} out of ${maxScore} points</div>
+    </div>
+  `;
+
+  document.getElementById('result-band-container').innerHTML = `
+    <div class="result-band ${tier}" style="margin-bottom: 28px;">
+      <div class="result-label">${data.label}</div>
+      <div class="result-title">${data.title}</div>
+      <div class="result-body">${data.body}</div>
+    </div>
+  `;
+
+  const breakdownGrid = document.getElementById('breakdown-grid');
+  breakdownGrid.innerHTML = '';
+
+  answers.forEach((ansIdx, qi) => {
+    const score = ansIdx !== null ? questions[qi].options[ansIdx].score : 0;
+    const pct = Math.round((score / 2) * 100);
+    const fillClass = score === 2 ? 'fill-green' : score === 1 ? 'fill-amber' : 'fill-red';
+
+    breakdownGrid.innerHTML += `
+      <div class="breakdown-row">
+        <span class="breakdown-cat">${categories[qi]}</span>
+        <div class="breakdown-bar-wrap">
+          <div class="breakdown-bar-fill ${fillClass}" style="width: ${pct}%"></div>
+        </div>
+        <span class="breakdown-score">${score}/2</span>
+      </div>
+    `;
+  });
+
+  document.getElementById('cta-box').innerHTML = `
+    <div class="cta-box-eyebrow">${data.cta_eyebrow}</div>
+    <div class="cta-box-title">${data.cta_title}</div>
+    <div class="cta-box-body">${data.cta_body}</div>
+    <button class="btn-cta" onclick="alert('Update this link with your Instagram DM or Linktree URL')">${data.cta_btn}</button>
+  `;
+
+  showScreen('screen-results');
+}
+
+function retake() {
+  currentQ = 0;
+  answers = new Array(questions.length).fill(null);
+  showScreen('screen-intro');
+}
+</script>
+
+</body>
+</html>
