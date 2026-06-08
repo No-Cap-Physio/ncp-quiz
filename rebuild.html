@@ -10,8 +10,8 @@
 :root{--navy:#1B2E4B;--teal:#2E86AB;--white:#fff;--off:#F5F7FA;--gray:#8A9BB0;--lgray:#E8EDF4;--muted:#5A6E87;--red:#E05353;--red-l:#FEF0F0;--amber:#E8943A;--amber-l:#fef5ee;--green:#2A9D5C;--green-l:#eaf7f0;--teal-l:#e6f4f9}
 body{font-family:'DM Sans',sans-serif;background:var(--off);color:var(--navy);font-size:16px;line-height:1.6}
 .header{background:var(--navy);padding:14px 20px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:100}
-.logo{font-family:'Bebas Neue',sans-serif;color:#fff;font-size:20px;letter-spacing:1px}
-.logo span{color:var(--teal)}
+.logo{display:flex;align-items:center}
+.logo img{height:30px;width:auto;filter:brightness(0) invert(1)}
 .tag{font-size:11px;color:var(--gray);letter-spacing:1px;text-transform:uppercase}
 .hero{background:var(--navy);padding:28px 20px 24px;border-bottom:3px solid var(--red)}
 .eyebrow{font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--red);font-weight:600;margin-bottom:8px}
@@ -44,10 +44,7 @@ body{font-family:'DM Sans',sans-serif;background:var(--off);color:var(--navy);fo
 .bullets li{font-size:13px;color:var(--muted);line-height:1.5;padding-left:14px;position:relative}
 .bullets li::before{content:"—";position:absolute;left:0;color:var(--gray)}
 .badge{font-size:10px;padding:2px 8px;border-radius:100px;font-weight:600;flex-shrink:0;letter-spacing:.5px;margin-top:3px;align-self:flex-start}
-.b-red{background:var(--red-l);color:var(--red)}
-.b-amber{background:var(--amber-l);color:var(--amber)}
-.b-teal{background:var(--teal-l);color:var(--teal)}
-.b-green{background:var(--green-l);color:var(--green)}
+.b-red{background:var(--red-l);color:var(--red)}.b-amber{background:var(--amber-l);color:var(--amber)}.b-teal{background:var(--teal-l);color:var(--teal)}.b-green{background:var(--green-l);color:var(--green)}
 .warn-box{background:var(--red-l);border:1px solid #f7c1c1;border-left:4px solid var(--red);border-radius:8px;padding:14px 16px;margin-bottom:24px}
 .warn-box p{font-size:13px;color:#8B3A3A;line-height:1.6}
 .warn-box strong{color:var(--navy)}
@@ -62,7 +59,7 @@ body{font-family:'DM Sans',sans-serif;background:var(--off);color:var(--navy);fo
 </head>
 <body>
 <div class="header">
-  <div class="logo">NO CAP <span>PHYSIO</span></div>
+  <div class="logo"><img src="https://no-cap-physio.github.io/ncp-logo.png" alt="No Cap Physio" onerror="this.parentElement.innerHTML='<span style=\'font-family:Bebas Neue,sans-serif;color:#fff;font-size:20px;letter-spacing:1px\'>NO CAP <span style=\'color:#2E86AB\'>PHYSIO</span></span>'"></div>
   <div class="tag">REBUILD — Return To Performance</div>
 </div>
 <div class="hero">
@@ -71,11 +68,9 @@ body{font-family:'DM Sans',sans-serif;background:var(--off);color:var(--navy);fo
   <p class="hero-sub">Your clearance letter lied to you. Not on purpose. Here's what it actually means.</p>
 </div>
 <div class="wrap">
-
   <div class="intro-box">
     <p><strong>Your score isn't a failure — it's information.</strong> It means your body is telling you something your clearance letter didn't. The gap between medically cleared and performance ready is real. And it's exactly where most athletes get hurt a second time.</p>
   </div>
-
   <div class="section-label">What Cleared Actually Means vs What You Think It Means</div>
   <div class="myth-cards">
     <div class="myth-card">
@@ -97,7 +92,6 @@ body{font-family:'DM Sans',sans-serif;background:var(--off);color:var(--navy);fo
       </div>
     </div>
   </div>
-
   <div class="section-label">The 4 Stages Of A Real Return</div>
   <div class="stages">
     <div class="stage">
@@ -118,7 +112,7 @@ body{font-family:'DM Sans',sans-serif;background:var(--off);color:var(--navy);fo
       <div class="sc">
         <div class="st">Stage 2 — Strength and Power Symmetry</div>
         <ul class="bullets">
-          <li>Both legs need to produce force and power within 10% of each other</li>
+          <li>Both sides need to produce force and power within 10% of each other</li>
           <li>Below that — LSI under 90% — your nervous system is compensating every single rep</li>
           <li>Your COM shifts to the stronger side on every landing and cut</li>
           <li>You won't feel it. But the data will show it</li>
@@ -153,19 +147,17 @@ body{font-family:'DM Sans',sans-serif;background:var(--off);color:var(--navy);fo
       <span class="badge b-green">Final stage</span>
     </div>
   </div>
-
   <div class="warn-box">
     <p><strong>Athletes who return before completing all four stages face significantly higher re-injury risk in the first 12 months back.</strong> Rushing back is not worth another 6-12 months on the sideline.</p>
   </div>
-
   <div class="cta">
     <div class="cta-eye">What Happens Next</div>
     <div class="cta-title">Start With The Free System — Then Go Deeper</div>
-    <div class="cta-body">Everything to address your gaps is inside Gains Chamber — stage-based programs, movement screen, benchmarks, and the full return-to-performance framework. Free to join. Start there.</div>
+    <div class="cta-body">Everything to address your gaps is inside Gains Chamber — stage-based programs, movement screen, benchmarks, and the full return-to-performance framework for performance athletes. Free to join. Start there.</div>
     <button class="cta-btn" onclick="window.open('https://www.skool.com/no-cap-athleticism-3616','_blank')">Join Gains Chamber — Free Access</button>
     <div class="cta-sub">Already know you want personalised coaching? <a href="https://nocapphysio.notion.site/12b0f8bb702f80d4a298c6c1294a4f3c?pvs=105" target="_blank" style="color:#3fa0c9;text-decoration:none;">Apply for 1-1 coaching here →</a></div>
   </div>
-  <div class="footer">No Cap Physio · @nocap.physio · Built for athletes who want to return to performance — not just return to play.</div>
+  <div class="footer">No Cap Physio · @nocap.physio · Built for performance athletes who want to return to performance — not just return to play.</div>
 </div>
 </body>
 </html>
