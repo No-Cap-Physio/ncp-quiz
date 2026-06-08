@@ -10,8 +10,8 @@
 :root{--navy:#1B2E4B;--teal:#2E86AB;--white:#fff;--off:#F5F7FA;--gray:#8A9BB0;--lgray:#E8EDF4;--muted:#5A6E87;--amber:#E8943A;--amber-l:#fef5ee;--teal-l:#e6f4f9}
 body{font-family:'DM Sans',sans-serif;background:var(--off);color:var(--navy);font-size:16px;line-height:1.6}
 .header{background:var(--navy);padding:14px 20px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:100}
-.logo{font-family:'Bebas Neue',sans-serif;color:#fff;font-size:20px;letter-spacing:1px}
-.logo span{color:var(--teal)}
+.logo{display:flex;align-items:center}
+.logo img{height:30px;width:auto;filter:brightness(0) invert(1)}
 .tag{font-size:11px;color:var(--gray);letter-spacing:1px;text-transform:uppercase}
 .hero{background:var(--navy);padding:28px 20px 24px;border-bottom:3px solid var(--amber)}
 .eyebrow{font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--amber);font-weight:600;margin-bottom:8px}
@@ -51,102 +51,84 @@ body{font-family:'DM Sans',sans-serif;background:var(--off);color:var(--navy);fo
 </head>
 <body>
 <div class="header">
-  <div class="logo">NO CAP <span>PHYSIO</span></div>
+  <div class="logo"><img src="https://no-cap-physio.github.io/ncp-quiz/ncp-logo.png" alt="No Cap Physio" onerror="this.parentElement.innerHTML='<span style=\'font-family:Bebas Neue,sans-serif;color:#fff;font-size:20px;letter-spacing:1px\'>NO CAP <span style=\'color:#2E86AB\'>PHYSIO</span></span>'"></div>
   <div class="tag">GAPS — Return To Performance</div>
 </div>
 <div class="hero">
-  <p class="eyebrow">For Athletes Who Scored 6–10</p>
+  <p class="eyebrow">For Athletes Who Scored 7–10</p>
   <h1>4 Things Your Rehab Skipped</h1>
   <p class="hero-sub">You're back. But you're not back. Here's exactly why.</p>
 </div>
 <div class="wrap">
-
   <div class="intro-box">
-    <p><strong>Standard physio gets your tissue healed. That's the job it was designed for.</strong> But basketball isn't walking or running in a straight line. It's full-speed cuts, contested jumps, reactive direction changes under fatigue. Nobody in your rehab pipeline was responsible for rebuilding those qualities. So they didn't.</p>
+    <p><strong>Standard physio gets your tissue healed. That's the job it was designed for.</strong> But sport isn't walking or running in a straight line. It's full-speed cuts, contested efforts, reactive direction changes under fatigue. Nobody in your rehab pipeline was responsible for rebuilding those qualities. So they didn't.</p>
   </div>
-
   <div class="section-label">The 4 Gaps Nobody Addressed</div>
   <div class="cards">
-
     <div class="card">
       <div class="card-head">
         <div class="card-num">01</div>
-        <div>
-          <div class="card-title">Your Power Was Never Rebuilt</div>
-          <div class="card-sub">Force-velocity gap</div>
-        </div>
+        <div><div class="card-title">Your Power Was Never Rebuilt</div><div class="card-sub">Force-velocity gap</div></div>
       </div>
       <div class="card-body">
         <ul class="bullets">
           <li>Strength and power are different qualities — your tissue healing doesn't restore your force-velocity profile</li>
           <li>After injury and time off, your muscle's ability to produce force <em>fast</em> drops significantly — even when general strength comes back</li>
           <li>This shows up in your EUR (Eccentric Utilization Ratio) — the ratio between your countermovement jump and squat jump</li>
-          <li>EUR below 1.10 means your stretch-shortening cycle isn't being used — you're jumping like someone with no elastic capacity</li>
+          <li>EUR below 1.10 means your stretch-shortening cycle isn't being used — you're moving like someone with no elastic capacity</li>
           <li><strong>Most rehab programs stop at bodyweight squat. That's step one of about six.</strong></li>
         </ul>
         <div class="on-court">
-          <div class="ocl">What this looks like on court</div>
+          <div class="ocl">What this looks like on court or in the field</div>
           <div class="oct">"I feel slow off my first step. My pop just isn't there. I know what I want to do but my body isn't doing it fast enough."</div>
         </div>
         <div class="bm-row"><span class="bm">NCP benchmark: CMJ &gt;40cm male | EUR 1.10–1.25 | Broad jump &gt;220cm</span></div>
       </div>
     </div>
-
     <div class="card">
       <div class="card-head">
         <div class="card-num">02</div>
-        <div>
-          <div class="card-title">Deceleration Was Never Trained</div>
-          <div class="card-sub">The most dangerous gap</div>
-        </div>
+        <div><div class="card-title">Deceleration Was Never Trained</div><div class="card-sub">The most dangerous gap</div></div>
       </div>
       <div class="card-body">
         <ul class="bullets">
-          <li>Most knee injuries don't happen on acceleration — they happen on deceleration and direction change</li>
+          <li>Most lower limb injuries don't happen on acceleration — they happen on deceleration and direction change</li>
           <li>After injury, your body develops a lateral shift — your COM moves away from the injured side on every landing and cut</li>
-          <li>This means you're loading your hip and knee at bad angles on every deceleration rep</li>
+          <li>This means you're loading your hip and knee at poor angles on every deceleration rep</li>
           <li>If nobody specifically trained this in rehab, <strong>you went back to the exact mechanics that were there when you got hurt</strong></li>
           <li>Sprint time can look fine but COD time is still slow — that gap is your deceleration deficit</li>
         </ul>
         <div class="on-court">
-          <div class="ocl">What this looks like on court</div>
-          <div class="oct">"I hesitate before I cut hard. I slow myself down before I actually need to. I avoid certain defensive positions."</div>
+          <div class="ocl">What this looks like in movement</div>
+          <div class="oct">"I hesitate before I cut hard. I slow myself down before I actually need to. I avoid certain positions."</div>
         </div>
         <div class="bm-row"><span class="bm">NCP benchmark: 5-10-5 COD &lt;4.8s male | Sprint OK + COD slow = decel deficit</span></div>
       </div>
     </div>
-
     <div class="card">
       <div class="card-head">
         <div class="card-num">03</div>
-        <div>
-          <div class="card-title">Your Elastic System Is Still Offline</div>
-          <div class="card-sub">Reactive strength gap</div>
-        </div>
+        <div><div class="card-title">Your Elastic System Is Still Offline</div><div class="card-sub">Reactive strength gap</div></div>
       </div>
       <div class="card-body">
         <ul class="bullets">
-          <li>Basketball runs on your elastic system — tendons absorbing force and firing it straight back out</li>
-          <li>This quality shuts down after injury and does not come back just because you started playing again</li>
+          <li>High-performance sport runs on your elastic system — tendons absorbing force and firing it straight back out</li>
+          <li>This quality shuts down after injury and does not come back just because you started training again</li>
           <li>RSI (Reactive Strength Index) is the number that tells you whether your elastic system is actually back online</li>
           <li>RSI below 1.5 on a drop jump means you're in reactive deficit — your ground contact time is too long and you're losing energy on every landing</li>
-          <li><strong>Fixing this requires specific plyometric progressions — not just jumping around in practice</strong></li>
+          <li><strong>Fixing this requires specific plyometric progressions — not just jumping around in training</strong></li>
         </ul>
         <div class="on-court">
-          <div class="ocl">What this looks like on court</div>
+          <div class="ocl">What this looks like in competition</div>
           <div class="oct">"I'm always a step late. I used to react before I thought. Now I'm thinking before I move and that half second costs me everything."</div>
         </div>
         <div class="bm-row"><span class="bm">NCP benchmark: RSI DJ &gt;1.5 minimum | RSI Mod &gt;0.9 | SL RSI &gt;1.5 efficient</span></div>
       </div>
     </div>
-
     <div class="card">
       <div class="card-head">
         <div class="card-num">04</div>
-        <div>
-          <div class="card-title">Your Movement Mechanics Were Never Restored</div>
-          <div class="card-sub">Biomechanics gap</div>
-        </div>
+        <div><div class="card-title">Your Movement Mechanics Were Never Restored</div><div class="card-sub">Biomechanics gap</div></div>
       </div>
       <div class="card-body">
         <ul class="bullets">
@@ -157,26 +139,23 @@ body{font-family:'DM Sans',sans-serif;background:var(--off);color:var(--navy);fo
           <li><strong>Standard rehab doesn't address this. Most physios don't even assess it.</strong></li>
         </ul>
         <div class="on-court">
-          <div class="ocl">What this looks like on court</div>
-          <div class="oct">"My body feels stiff on one side. My drive is weaker going left vs right. I feel like I'm compensating but I don't know how to fix it."</div>
+          <div class="ocl">What this looks like in movement</div>
+          <div class="oct">"My body feels stiff on one side. My drive is weaker going one direction. I feel like I'm compensating but I don't know how to fix it."</div>
         </div>
         <div class="bm-row"><span class="bm">NCP assessment: Hip IR symmetry within 10° bilateral | COM shift on SL landing</span></div>
       </div>
     </div>
-
   </div>
-
   <div class="truth-box">
     <p><strong>None of this is your fault.</strong> Standard physio wasn't built for this part of the journey. The gap between tissue healing and actual performance is a different program — and most rehab pipelines don't have one.</p>
   </div>
-
   <div class="cta">
     <div class="cta-eye">The Fix Is Here</div>
     <div class="cta-title">Gains Chamber Has Everything To Fill These Gaps</div>
-    <div class="cta-body">Power development, deceleration mechanics, plyometric progressions, and movement restoration — built for basketball athletes. Free to join.</div>
+    <div class="cta-body">Power development, deceleration mechanics, plyometric progressions, and movement restoration — built for performance athletes. Free to join.</div>
     <button class="cta-btn" onclick="window.open('https://www.skool.com/no-cap-athleticism-3616','_blank')">Join Gains Chamber — Free Access</button>
   </div>
-  <div class="footer">No Cap Physio · @nocap.physio · Built for athletes who want to return to performance — not just return to play.</div>
+  <div class="footer">No Cap Physio · @nocap.physio · Built for performance athletes who want to return to performance — not just return to play.</div>
 </div>
 </body>
 </html>
