@@ -10,8 +10,8 @@
 :root{--navy:#1B2E4B;--teal:#2E86AB;--white:#fff;--off:#F5F7FA;--gray:#8A9BB0;--lgray:#E8EDF4;--muted:#5A6E87;--green:#2A9D5C;--green-l:#eaf7f0;--amber:#E8943A;--amber-l:#fef5ee;--teal-l:#e6f4f9;--red:#E05353;--red-l:#FEF0F0}
 body{font-family:'DM Sans',sans-serif;background:var(--off);color:var(--navy);font-size:16px;line-height:1.6}
 .header{background:var(--navy);padding:14px 20px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:100}
-.logo{font-family:'Bebas Neue',sans-serif;color:#fff;font-size:20px;letter-spacing:1px}
-.logo span{color:var(--teal)}
+.logo{display:flex;align-items:center}
+.logo img{height:30px;width:auto;filter:brightness(0) invert(1)}
 .tag{font-size:11px;color:var(--gray);letter-spacing:1px;text-transform:uppercase}
 .hero{background:var(--navy);padding:28px 20px 24px;border-bottom:3px solid var(--teal)}
 .eyebrow{font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--teal);font-weight:600;margin-bottom:8px}
@@ -32,15 +32,12 @@ body{font-family:'DM Sans',sans-serif;background:var(--off);color:var(--navy);fo
 .bullets li{font-size:13px;color:var(--muted);line-height:1.5;padding-left:14px;position:relative}
 .bullets li::before{content:"—";position:absolute;left:0;color:var(--teal)}
 .bm{display:inline-block;background:var(--teal-l);color:var(--teal);font-size:11px;font-weight:600;padding:3px 10px;border-radius:100px;letter-spacing:.5px}
-.bm-green{background:var(--green-l);color:var(--green)}
 .warn-box{background:var(--amber-l);border:1px solid #f5d0a9;border-left:4px solid var(--amber);border-radius:8px;padding:14px 16px;margin-top:8px}
 .warn-box p{font-size:13px;color:var(--muted);line-height:1.6}
 .warn-box strong{color:var(--navy)}
 .score-row{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:8px}
 .sc{border-radius:8px;padding:12px;text-align:center}
-.sc.g{background:var(--green-l)}
-.sc.a{background:var(--amber-l)}
-.sc.r{background:var(--red-l)}
+.sc.g{background:var(--green-l)}.sc.a{background:var(--amber-l)}.sc.r{background:var(--red-l)}
 .sn{font-family:'Bebas Neue',sans-serif;font-size:24px;line-height:1;margin-bottom:3px}
 .g .sn{color:var(--green)}.a .sn{color:var(--amber)}.r .sn{color:var(--red)}
 .sl{font-size:11px;color:var(--muted);line-height:1.4}
@@ -55,7 +52,7 @@ body{font-family:'DM Sans',sans-serif;background:var(--off);color:var(--navy);fo
 </head>
 <body>
 <div class="header">
-  <div class="logo">NO CAP <span>PHYSIO</span></div>
+  <div class="logo"><img src="https://no-cap-physio.github.io/ncp-quiz/ncp-logo.png" alt="No Cap Physio" onerror="this.parentElement.innerHTML='<span style=\'font-family:Bebas Neue,sans-serif;color:#fff;font-size:20px;letter-spacing:1px\'>NO CAP <span style=\'color:#2E86AB\'>PHYSIO</span></span>'"></div>
   <div class="tag">LOCKED — Performance Readiness</div>
 </div>
 <div class="hero">
@@ -64,14 +61,11 @@ body{font-family:'DM Sans',sans-serif;background:var(--off);color:var(--navy);fo
   <p class="hero-sub">Close doesn't mean ready. Tick all 6 before you go full send.</p>
 </div>
 <div class="wrap">
-
   <div class="intro-box">
-    <p><strong>Your clearance letter doesn't cover any of this.</strong> It says your tissue healed enough to tolerate activity. That's it. These 6 standards are what actually decide whether you're ready to perform — not just survive a game.</p>
+    <p><strong>Your clearance letter doesn't cover any of this.</strong> It says your tissue healed enough to tolerate activity. That's it. These 6 standards are what actually decide whether you're ready to perform — not just survive a session.</p>
   </div>
-
   <div class="section-label">The 6 Standards That Actually Matter</div>
   <div class="items">
-
     <div class="item">
       <div class="cb" onclick="this.classList.toggle('done')"></div>
       <div class="ib">
@@ -85,7 +79,6 @@ body{font-family:'DM Sans',sans-serif;background:var(--off);color:var(--navy);fo
         <span class="bm">NCP Target: LSI &gt;90% single-leg strength | BBG L3+ for RTP</span>
       </div>
     </div>
-
     <div class="item">
       <div class="cb" onclick="this.classList.toggle('done')"></div>
       <div class="ib">
@@ -99,7 +92,6 @@ body{font-family:'DM Sans',sans-serif;background:var(--off);color:var(--navy);fo
         <span class="bm">NCP Target: SL hop LSI &gt;90% | RSI Mod &gt;0.9 | CMJ LSI &gt;90%</span>
       </div>
     </div>
-
     <div class="item">
       <div class="cb" onclick="this.classList.toggle('done')"></div>
       <div class="ib">
@@ -113,7 +105,6 @@ body{font-family:'DM Sans',sans-serif;background:var(--off);color:var(--navy);fo
         <span class="bm">NCP Target: Zero reactive swelling or ache &gt;24hrs post-activity</span>
       </div>
     </div>
-
     <div class="item">
       <div class="cb" onclick="this.classList.toggle('done')"></div>
       <div class="ib">
@@ -127,7 +118,6 @@ body{font-family:'DM Sans',sans-serif;background:var(--off);color:var(--navy);fo
         <span class="bm">NCP Target: Hip IR symmetry within 10° bilateral | No lateral COM shift on SL landing</span>
       </div>
     </div>
-
     <div class="item">
       <div class="cb" onclick="this.classList.toggle('done')"></div>
       <div class="ib">
@@ -135,51 +125,45 @@ body{font-family:'DM Sans',sans-serif;background:var(--off);color:var(--navy);fo
         <ul class="bullets">
           <li>This isn't a mindset issue — it's a clinical variable</li>
           <li>Athletes who return without addressing fear of re-injury are significantly more likely to get hurt again and underperform for months</li>
-          <li>Research shows confidence in cutting and jumping is one of the strongest predictors of actual re-injury — not just performance</li>
+          <li>Research shows confidence in high-intensity movements is one of the strongest predictors of actual re-injury — not just performance</li>
           <li>Your brain needs to catch up with your body. Graded exposure to threatening movements under progressive load is the only way through this</li>
         </ul>
-        <span class="bm">NCP Target: ACL-RSI &gt;65 | Perceived confidence on cuts/jumps &gt;8/10</span>
+        <span class="bm">NCP Target: ACL-RSI &gt;65 | Perceived confidence on high-load movements &gt;8/10</span>
       </div>
     </div>
-
     <div class="item">
       <div class="cb" onclick="this.classList.toggle('done')"></div>
       <div class="ib">
         <div class="it">Sport-Specific Exposure</div>
         <ul class="bullets">
-          <li>You can't skip the bridge between rehab and full game speed</li>
-          <li>Contested jumps, hard drives, defensive slides, contact — these need progressive reloading over time</li>
+          <li>You can't skip the bridge between rehab and full training speed</li>
+          <li>Explosive efforts, hard changes of direction, contested movements, contact — these need progressive reloading over time</li>
           <li>Not thrown at you on game day and hoped for the best</li>
           <li>Return to practice ≠ return to performance. Volume, intensity, and contact need to be graded</li>
         </ul>
         <span class="bm">NCP Target: Progressive RTS exposure over minimum 4 weeks before full competition</span>
       </div>
     </div>
-
   </div>
-
   <div class="warn-box">
     <p><strong>Most athletes return when they pass 1 or 2 of these.</strong> Passing all 6 is rare — and it's exactly why re-injury rates stay high. This isn't over-cautiousness. It's the difference between returning and returning to your level.</p>
   </div>
-
   <div class="section-label">What Your Checklist Score Means</div>
   <div class="score-row">
     <div class="sc g"><div class="sn">5–6</div><div class="sl">Lock in the last criteria and go</div></div>
     <div class="sc a"><div class="sn">3–4</div><div class="sl">Real gaps still there — address before full load</div></div>
     <div class="sc r"><div class="sn">0–2</div><div class="sl">Not ready — needs a proper plan first</div></div>
   </div>
-
   <div class="cta">
     <div class="cta-eye">What's Next</div>
     <div class="cta-title">The Full Return-To-Performance System Is Inside Gains Chamber</div>
-    <div class="cta-body">Standards database, hop test protocols, power benchmarks, movement assessments, and return-to-performance programming — built for basketball athletes. Free to join.</div>
+    <div class="cta-body">Standards database, hop test protocols, power benchmarks, movement assessments, and return-to-performance programming — built for performance athletes. Free to join.</div>
     <button class="cta-btn" onclick="window.open('https://www.skool.com/no-cap-athleticism-3616','_blank')">Join Gains Chamber — Free Access</button>
   </div>
-
   <div style="background:#FFF8E8;border:2px solid #E8943A;border-radius:12px;padding:22px 18px;margin-top:16px;text-align:center">
     <div style="font-size:11px;letter-spacing:2px;text-transform:uppercase;color:#E8943A;font-weight:600;margin-bottom:6px">Free Resource</div>
     <div style="font-family:'Bebas Neue',sans-serif;font-size:26px;color:#1B2E4B;line-height:1.1;margin-bottom:8px">BBG Strength Standards Cheat Code</div>
-    <div style="font-size:13px;color:#5A6E87;line-height:1.6;margin-bottom:16px">5 strength levels. Exact numbers for your bodyweight and position. Know exactly where you sit — and what the next level actually requires.</div>
+    <div style="font-size:13px;color:#5A6E87;line-height:1.6;margin-bottom:16px">5 strength levels. Exact numbers for your bodyweight. Know exactly where you sit — and what the next level actually requires.</div>
     <div style="display:flex;justify-content:center;gap:12px;flex-wrap:wrap;margin-bottom:16px">
       <div style="background:#fff;border:1px solid #f5d0a9;border-radius:8px;padding:8px 14px;font-size:12px;color:#5A6E87"><strong style="color:#1B2E4B">Full Squat</strong><br>1.5x bodyweight</div>
       <div style="background:#fff;border:1px solid #f5d0a9;border-radius:8px;padding:8px 14px;font-size:12px;color:#5A6E87"><strong style="color:#1B2E4B">Hinge</strong><br>1.5x bodyweight</div>
@@ -189,7 +173,7 @@ body{font-family:'DM Sans',sans-serif;background:var(--off);color:var(--navy);fo
     <button onclick="window.open('https://drive.google.com/file/d/1rZfqlZOv5TeddrrM8GwsnltnjmEGxWZV/view?usp=drive_link','_blank')" style="display:block;width:100%;background:#E8943A;color:#fff;font-family:'Bebas Neue',sans-serif;font-size:20px;letter-spacing:1px;padding:16px 20px;border:none;border-radius:8px;cursor:pointer">Download The BBG Cheat Code — Free PDF →</button>
     <div style="font-size:12px;color:#8A9BB0;margin-top:8px">No signup required. Instant download.</div>
   </div>
-  <div class="footer">No Cap Physio · @nocap.physio · Built for athletes who want to return to performance — not just return to play.</div>
+  <div class="footer">No Cap Physio · @nocap.physio · Built for performance athletes who want to return to performance — not just return to play.</div>
 </div>
 </body>
 </html>
