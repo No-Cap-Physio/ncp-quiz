@@ -140,6 +140,18 @@
   #aout{display:none;width:100%;min-height:220px;margin-top:14px;border:1.5px solid var(--line);border-radius:10px;padding:12px;font-family:ui-monospace,monospace;font-size:12px;background:#fff}
 
 /* ===== email capture ===== */
+.rbox{background:#fff;border:2px solid var(--tan);border-radius:16px;padding:20px;margin-top:16px}
+.rstep{font-family:'Montserrat',sans-serif;font-weight:700;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--tan)}
+.rq{font-family:'Montserrat',sans-serif;font-weight:800;font-size:18px;color:var(--navy);margin-top:4px}
+.rq.sm{font-size:15px;margin-top:14px}
+.rp{font-size:13.5px;color:#3c4a5c;margin:8px 0 0}
+.rp a{color:var(--navy);font-weight:600}
+.ropts{display:flex;flex-direction:column;gap:9px;margin-top:12px}
+.ropt{display:block;text-align:left;font:inherit;font-weight:600;font-size:14.5px;color:var(--navy);background:var(--cream);border:1.5px solid #D8CFC0;border-radius:11px;padding:13px 15px;cursor:pointer;text-decoration:none}
+.ropt:hover{border-color:var(--tan)}
+.ropt.yes{background:var(--tan);border-color:var(--tan);font-weight:800}
+.rprice{display:block;font-weight:500;font-size:12.5px;color:#6b7686;margin-top:2px}
+.rprice.big{font-family:'Montserrat',sans-serif;font-weight:800;font-size:15px;color:var(--tan);margin-top:4px}
 .capture{background:#fff;border:2px solid var(--navy);border-radius:16px;padding:20px;margin-top:16px;text-align:center;}
 .capture .ch{font-family:'Montserrat',sans-serif;font-weight:800;font-size:17px;color:var(--navy);}
 .capture .cp{font-size:13px;color:var(--muted);margin:6px auto 14px;max-width:44ch;line-height:1.5;}
@@ -364,6 +376,20 @@ const GAINS="https://www.skool.com/no-cap-athleticism-3616";
 const ESP_ENDPOINT="";
 const ESP_FIELD="email";
 
+/* ===== ROUTING — "Want help with this?" =====
+   Every result asks a few questions and routes to: run it yourself (Gains), 1-on-1, small group, or online.
+   Coaching routes open WhatsApp with a pre-filled message tagged [SS-region-tier] so Harry can count where leads come from.
+   Prices come from NCP_MASTER_PRICING.md + the group formula. Set a price to "" to hide it.
+   APPLY_URL: paste the live application form link to show an "Apply" button next to WhatsApp. Empty = WhatsApp only. */
+const WA_NUMBER="85292820022";
+const APPLY_URL="";
+const ROUTES={
+  oneone:{short:"1-on-1 coaching",name:"1-on-1 coaching (in person, Hong Kong)",price:"from HK$4,000/month",why:"Assessment, hands-on treatment where it's needed, and a program built around your numbers. Retested every block so you can see it working."},
+  group:{short:"small group training",name:"Small group training (Hong Kong)",price:"from HK$1,300/month",why:"Coached in a small group of up to 8 on shared programming. Best value if you're not in pain and want to build strength, speed and robustness."},
+  online:{short:"online coaching",name:"Online coaching",price:"from HK$2,400/month (about US$310)",why:"Your own program in the app, video review of your movement, and a remote retest every 8 weeks so you see the numbers move."},
+  seen:{short:"an in-person assessment",name:"Get it looked at in person",price:"Assessment HK$1,500, credited to your first month",why:"You ticked a red flag. Let's check it properly before you load it."}
+};
+
 /* Full deep protocols per region — paste the hosted/published URL of the FULL progression
    (e.g. your Knee Pain Chain Check, Ankle, Adductor pages). Empty = the Gains CTA covers it;
    set one and a direct "full progression" button appears on that region's result. */
@@ -556,6 +582,7 @@ function showResult(k){
       </div>
       <div class="cmsg" hidden></div>
     </form>`:``}
+    <div class="route" id="route" data-k="${k}" data-tier="${tier}"></div>
     <div style="background:var(--navy);color:var(--cream);border-radius:16px;padding:22px 20px;margin-top:16px;text-align:center;box-shadow:var(--shadow)">
       <div style="font-family:'Montserrat';font-weight:800;font-size:18px;color:var(--tan)">Want the full plan?</div>
       <p style="font-size:13.5px;opacity:.92;margin:8px auto 15px;max-width:470px">This is your starter. Every region, every progression, the video library, and me answering your questions live — it's all in the Gains Chamber. Free to join.</p>
@@ -567,7 +594,82 @@ function showResult(k){
 
   const box=document.getElementById('result');
   box.innerHTML=html;box.classList.add('show');
+  startRoute(k,tier);
   box.scrollIntoView({behavior:'smooth',block:'start'});
+}
+
+/* ===== ROUTING FLOW ===== */
+const TIER_LABEL={flag:"red flag",settle:"Settle",rebuild:"Rebuild",unleash:"Unleash"};
+let RT={};
+function startRoute(k,tier){
+  RT={k,tier,where:"",when:"",how:""};
+  if(tier==='flag'){RT.where="hk";RT.how="seen";return routeOffer();}
+  routeStep(`<div class="rq">Want help with this?</div>
+    <p class="rp">The plan above is yours either way. If you want a coach on it, answer three quick questions and I'll point you to the right option.</p>
+    <div class="ropts">
+      <button class="ropt" onclick="routeSelf()">I'll run the plan myself</button>
+      <button class="ropt" onclick="routeWhere()">I want a coach on it</button>
+    </div>`);
+}
+function routeStep(inner){
+  const el=document.getElementById('route'); if(!el) return;
+  el.innerHTML=`<div class="rbox">${inner}</div>`;
+}
+function routeSelf(){
+  routeStep(`<div class="rq">Good. Start today.</div>
+    <p class="rp">Run the ${REGIONS[RT.k].name.toLowerCase()} plan for 4 weeks, then come back and screen it again. If your answers move from red to amber to green, it's working. The follow-along videos are in the Gains Chamber below.</p>
+    <p class="rp"><a href="#" onclick="startRoute(RT.k,RT.tier);return false">Changed your mind? Get a coach on it &rarr;</a></p>`);
+}
+function routeWhere(){
+  routeStep(`<div class="rstep">1 of 3</div><div class="rq">Where are you based?</div>
+    <div class="ropts">
+      <button class="ropt" onclick="RT.where='hk';routeWhen()">Hong Kong</button>
+      <button class="ropt" onclick="RT.where='overseas';routeWhen()">Outside Hong Kong</button>
+    </div>`);
+}
+function routeWhen(){
+  routeStep(`<div class="rstep">2 of 3</div><div class="rq">When do you need to be back, or at your best?</div>
+    <div class="ropts">
+      <button class="ropt" onclick="RT.when='under 6 weeks';routeHow()">Under 6 weeks (game, trial, season)</button>
+      <button class="ropt" onclick="RT.when='6–12 weeks';routeHow()">6–12 weeks</button>
+      <button class="ropt" onclick="RT.when='no set date';routeHow()">No set date</button>
+    </div>`);
+}
+function routeHow(){
+  if(RT.where!=='hk'){RT.how='online';return routeOffer();}
+  const p=r=>ROUTES[r].price?`<span class="rprice">${ROUTES[r].price}</span>`:'';
+  routeStep(`<div class="rstep">3 of 3</div><div class="rq">How do you want to train?</div>
+    <div class="ropts">
+      <button class="ropt" onclick="RT.how='oneone';routeOffer()">1-on-1, in person ${p('oneone')}</button>
+      <button class="ropt" onclick="RT.how='group';routeOffer()">Small group ${p('group')}</button>
+      <button class="ropt" onclick="RT.how='online';routeOffer()">Online, from anywhere ${p('online')}</button>
+      <button class="ropt" onclick="RT.how=(RT.tier==='unleash'?'group':'oneone');RT.picked=true;routeOffer()">Not sure, pick for me</button>
+    </div>`);
+}
+function waLink(){
+  const r=REGIONS[RT.k], route=ROUTES[RT.how];
+  const where=RT.where==='hk'?'in Hong Kong':'outside Hong Kong';
+  const msg=`Hi Harry, I just did the NCP Self-Screen. ${r.name}: ${TIER_LABEL[RT.tier]}. I'm ${where}`+(RT.when?`, timeline ${RT.when}`:'')+`. Interested in ${route.short}. [SS-${RT.k}-${RT.tier}-${RT.how}]`;
+  return `https://wa.me/${WA_NUMBER}?text=${encodeURIComponent(msg)}`;
+}
+function routeOffer(){
+  const route=ROUTES[RT.how];
+  const why=RT.picked?(RT.tier==='unleash'?"You're not in pain and you're ready to build, so small group gets you the most for the money. ":"You've still got something sore or limited, so I'd want eyes on you 1-on-1 first. "):"";
+  const urgent=RT.when==='under 6 weeks'?`<p class="rp"><b>Under 6 weeks is tight.</b> Message today so we can plan backwards from your date.</p>`:'';
+  routeStep(`<div class="rq">${route.name}</div>
+    ${route.price?`<div class="rprice big">${route.price}</div>`:''}
+    <p class="rp">${why}${route.why}</p>${urgent}
+    <div class="rq sm">${RT.how==='seen'?'Send me a clip and a few lines first.':'Does that fit right now?'}</div>
+    <div class="ropts">
+      <a class="ropt yes" href="${waLink()}" target="_blank" rel="noopener">Yes, message me on WhatsApp &rarr;</a>
+      ${APPLY_URL?`<a class="ropt" href="${APPLY_URL}" target="_blank" rel="noopener">Apply online</a>`:''}
+      <button class="ropt" onclick="routeLater()">Not right now</button>
+    </div>
+    <p class="rp"><a href="#" onclick="startRoute(RT.k,RT.tier);return false">&larr; Start again</a></p>`);
+}
+function routeLater(){
+  routeStep(`<div class="rq">No stress.</div>
+    <p class="rp">Run the plan above, join the Gains Chamber below, and screen it again in 4 weeks. When you're ready, <a href="${waLink()}" target="_blank" rel="noopener">message me on WhatsApp</a>.</p>`);
 }
 
 function sendEmail(e,region){
