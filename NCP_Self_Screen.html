@@ -383,11 +383,16 @@ const ESP_FIELD="email";
    APPLY_URL: paste the live application form link to show an "Apply" button next to WhatsApp. Empty = WhatsApp only. */
 const WA_NUMBER="85292820022";
 const APPLY_URL="";
+/* Discovery call — the main next step for every coaching route. Notes field is pre-filled with the screen result. */
+const BOOK_URL="https://cal.com/no-cap-physio/strategy-call";
+/* Prices hidden 3 Nov 2026 (Harry: showing price up front puts people off). Old values, from NCP_MASTER_PRICING.md:
+   1-on-1 from HK$4,000/month · small group from HK$1,300/month · online from HK$2,400/month (~US$310) · assessment HK$1,500.
+   Put a value back in a route's price field to show it again. */
 const ROUTES={
-  oneone:{short:"1-on-1 coaching",name:"1-on-1 coaching (in person, Hong Kong)",price:"from HK$4,000/month",why:"Assessment, hands-on treatment where it's needed, and a program built around your numbers. Retested every block so you can see it working."},
-  group:{short:"small group training",name:"Small group training (Hong Kong)",price:"from HK$1,300/month",why:"Coached in a small group of up to 8 on shared programming. Best value if you're not in pain and want to build strength, speed and robustness."},
-  online:{short:"online coaching",name:"Online coaching",price:"from HK$2,400/month (about US$310)",why:"Your own program in the app, video review of your movement, and a remote retest every 8 weeks so you see the numbers move."},
-  seen:{short:"an in-person assessment",name:"Get it looked at in person",price:"Assessment HK$1,500, credited to your first month",why:"You ticked a red flag. Let's check it properly before you load it."}
+  oneone:{short:"1-on-1 coaching",name:"1-on-1 coaching (in person, Hong Kong)",price:"",why:"Assessment, hands-on treatment where it's needed, and a program built around your numbers. Retested every block so you can see it working."},
+  group:{short:"small group training",name:"Small group training (Hong Kong)",price:"",why:"Coached in a small group of up to 8 on shared programming. Best value if you're not in pain and want to build strength, speed and robustness."},
+  online:{short:"online coaching",name:"Online coaching",price:"",why:"Your own program in the app, video review of your movement, and a remote retest every 8 weeks so you see the numbers move."},
+  seen:{short:"an in-person assessment",name:"Get it looked at in person",price:"",why:"You ticked a red flag. Let's check it properly before you load it."}
 };
 
 /* Full deep protocols per region — paste the hosted/published URL of the FULL progression
@@ -646,30 +651,38 @@ function routeHow(){
       <button class="ropt" onclick="RT.how=(RT.tier==='unleash'?'group':'oneone');RT.picked=true;routeOffer()">Not sure, pick for me</button>
     </div>`);
 }
-function waLink(){
+function leadMsg(){
   const r=REGIONS[RT.k], route=ROUTES[RT.how];
   const where=RT.where==='hk'?'in Hong Kong':'outside Hong Kong';
-  const msg=`Hi Harry, I just did the NCP Self-Screen. ${r.name}: ${TIER_LABEL[RT.tier]}. I'm ${where}`+(RT.when?`, timeline ${RT.when}`:'')+`. Interested in ${route.short}. [SS-${RT.k}-${RT.tier}-${RT.how}]`;
-  return `https://wa.me/${WA_NUMBER}?text=${encodeURIComponent(msg)}`;
+  return `Hi Harry, I just did the NCP Self-Screen. ${r.name}: ${TIER_LABEL[RT.tier]}. I'm ${where}`+(RT.when?`, timeline ${RT.when}`:'')+`. Interested in ${route.short}. [SS-${RT.k}-${RT.tier}-${RT.how}]`;
 }
+function waLink(){ return `https://wa.me/${WA_NUMBER}?text=${encodeURIComponent(leadMsg())}`; }
+function bookLink(){ return `${BOOK_URL}?notes=${encodeURIComponent(leadMsg())}`; }
 function routeOffer(){
   const route=ROUTES[RT.how];
   const why=RT.picked?(RT.tier==='unleash'?"You're not in pain and you're ready to build, so small group gets you the most for the money. ":"You've still got something sore or limited, so I'd want eyes on you 1-on-1 first. "):"";
-  const urgent=RT.when==='under 6 weeks'?`<p class="rp"><b>Under 6 weeks is tight.</b> Message today so we can plan backwards from your date.</p>`:'';
+  const urgent=RT.when==='under 6 weeks'?`<p class="rp"><b>Under 6 weeks is tight.</b> Book today so we can plan backwards from your date.</p>`:'';
+  const seen=RT.how==='seen';
+  const primary=seen
+    ?`<a class="ropt yes" href="${waLink()}" target="_blank" rel="noopener">Send me a clip on WhatsApp &rarr;</a>
+      <a class="ropt" href="${bookLink()}" target="_blank" rel="noopener">Book a free discovery call</a>`
+    :`<a class="ropt yes" href="${bookLink()}" target="_blank" rel="noopener">Book my free discovery call &rarr;</a>
+      <a class="ropt" href="${waLink()}" target="_blank" rel="noopener">Or message me on WhatsApp</a>`;
   routeStep(`<div class="rq">${route.name}</div>
     ${route.price?`<div class="rprice big">${route.price}</div>`:''}
     <p class="rp">${why}${route.why}</p>${urgent}
-    <div class="rq sm">${RT.how==='seen'?'Send me a clip and a few lines first.':'Does that fit right now?'}</div>
+    <div class="rq sm">${seen?'Send me a clip and a few lines first.':'Next step: a free discovery call'}</div>
+    ${seen?'':`<p class="rp">A short video call. I look at your screen result, ask about your goal and your timeline, and tell you straight whether I can help and how. No pressure, no hard sell.</p>`}
     <div class="ropts">
-      <a class="ropt yes" href="${waLink()}" target="_blank" rel="noopener">Yes, message me on WhatsApp &rarr;</a>
+      ${primary}
       ${APPLY_URL?`<a class="ropt" href="${APPLY_URL}" target="_blank" rel="noopener">Apply online</a>`:''}
-      <button class="ropt" onclick="routeLater()">Not right now</button>
+      <button class="ropt" onclick="routeLater()">Not ready yet</button>
     </div>
     <p class="rp"><a href="#" onclick="startRoute(RT.k,RT.tier);return false">&larr; Start again</a></p>`);
 }
 function routeLater(){
   routeStep(`<div class="rq">No stress.</div>
-    <p class="rp">Run the plan above, join the Gains Chamber below, and screen it again in 4 weeks. When you're ready, <a href="${waLink()}" target="_blank" rel="noopener">message me on WhatsApp</a>.</p>`);
+    <p class="rp">Run the plan above, join the Gains Chamber below, and screen it again in 4 weeks. When you're ready, <a href="${bookLink()}" target="_blank" rel="noopener">book a free discovery call</a>.</p>`);
 }
 
 function sendEmail(e,region){
